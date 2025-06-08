@@ -165,7 +165,11 @@ namespace BulkyWeb.Areas.Customer.Controllers
                 _unitOfWork.Save();
 
                 Response.Headers.Add("Location", session.Url); // Redirect to Stripe Checkout
-                return new StatusCodeResult(303); // 303 See Other
+                // old 08-6-2025
+                //return new StatusCodeResult(303); // 303 See Other
+                // new  08-06-2025
+                return Redirect(session.Url);
+
             }
 
 
