@@ -130,7 +130,8 @@ namespace BulkyWeb.Areas.Customer.Controllers
             if (applicationUser.CompanyId.GetValueOrDefault() == 0)
             {
                 // it is a regular customer account and we need to capture payment details
-                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
+                var domain = "https://bulkymvc-dotnetmastery-aaeaadeqg7eydybx.israelcentral-01.azurewebsites.net/";
+
                 var options = new SessionCreateOptions
                 {
                     SuccessUrl = domain+ $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
