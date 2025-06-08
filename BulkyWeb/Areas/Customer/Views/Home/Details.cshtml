@@ -1,0 +1,85 @@
+﻿@model ShoppingCart
+
+<form method="post">
+    <input hidden asp-for="ProductId" />
+    <div class="card shadow border-0 mt-4">
+        <!-- Header -->
+        <div class="card-header bg-secondary bg-gradient text-light py-4">
+            <div class="text-center">
+                <h3 class="text-white text-uppercase mb-1">@Model.Product.Title</h3>
+                <p class="text-white-50 fw-semibold mb-0">by @Model.Product.Author</p>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body">
+            <!-- Back Button -->
+            <div class="row mb-4">
+                <div class="col-md-3 offset-md-1">
+                    <a asp-action="Index" class="btn btn-outline-primary bg-gradient fw-semibold btn-sm text-uppercase">
+                        <small>Back to Home</small>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Image -->
+                <div class="col-lg-4 text-center mb-4">
+                    <img src="@Model.Product.ImageUrl" alt="@Model.Product.Title" class="img-fluid rounded shadow-sm" />
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-lg-7">
+                    <div class="mb-3">
+                        <span class="badge bg-info fs-6">@Model.Product.Category.Name</span>
+                    </div>
+
+                    <div class="mb-2 text-muted">
+                        <strong>ISBN:</strong> @Model.Product.ISBN
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>List Price:</strong>
+                        <span class="text-danger text-decoration-line-through">@Model.Product.PriceList.ToString("c")</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Price for 1–50 units:</strong>
+                        <span class="text-success">@Model.Product.Price.ToString("c")</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Price for 51–100 units:</strong>
+                        <span class="text-success">@Model.Product.Price50.ToString("c")</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Price for 100+ units:</strong>
+                        <span class="text-success">@Model.Product.Price100.ToString("c")</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-secondary">@Html.Raw(Model.Product.Description)</p>
+                    </div>
+
+                    <!-- Count Input -->
+                    <div class="mb-4 col-md-6 ps-0">
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white fw-semibold" id="countLabel">
+                                Count
+                            </span>
+                            <input asp-for="Count" type="number" value="1" min="1" class="form-control text-end" aria-label="Count" aria-describedby="countLabel" />
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-md-6 ps-0">
+                        <button type="submit" class="btn btn-primary bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
