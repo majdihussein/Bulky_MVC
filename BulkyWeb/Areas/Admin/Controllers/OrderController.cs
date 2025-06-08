@@ -150,7 +150,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
             // for Stripe pay
             // it is a regular customer account and we need to capture payment details
-            var domain = Request.Scheme + "://" + Request.Host.Value + "/";
+            var domain = "https://bulkymvc-dotnetmastery-aaeaadeqg7eydybx.israelcentral-01.azurewebsites.net/";
             var options = new SessionCreateOptions
             {
                 SuccessUrl = domain + $"admin/order/PaymentConfirmation?orderHeaderId={OrderVM.OrderHeader.Id}",
