@@ -56,6 +56,9 @@
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Creat User</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Manage User</a>
+                                    </li>
                                 </ul>
                                 <!--majdi navbar add-->
                             </li>
@@ -93,7 +96,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.datatables.net/2.3.1/js/dataTables.min.js" asp-append-version="true"></script>
 
-    <script src="https://cdn.tiny.cloud/1/2xa1f3pxqwh34oeu0uog56i48l4sx3ekklozdnvgf3839i4h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/2xa1f3pxqwh34oeu0uog56i48l4sx3ekklozdnvgf3839i4h/tinymce/7/tinymce.min.js" referrerpolicy="origin">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

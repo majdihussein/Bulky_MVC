@@ -16,6 +16,7 @@ namespace Bulky.DataAccess.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -41,7 +42,7 @@ namespace Bulky.DataAccess.Data
                     Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                     ISBN = "SWD9999001", Author = "Billy Spark", 
                     PriceList= 99, Price = 90, Price50 = 85, Price100 = 80,
-                    CategoryId = 1, ImageUrl = ""},
+                    CategoryId = 1},
 
                 new Product {
                     Id = 2,
@@ -49,7 +50,7 @@ namespace Bulky.DataAccess.Data
                     Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                     ISBN = "CAW777777701",
                     PriceList = 40, Price = 30, Price50 = 25, Price100 = 20,
-                    CategoryId = 2, ImageUrl = ""
+                    CategoryId = 2
                 },
 
                 new Product
@@ -59,7 +60,7 @@ namespace Bulky.DataAccess.Data
                     Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                     ISBN = "RITO5555501",
                     PriceList = 55, Price = 50, Price50 = 40, Price100 = 35,
-                    CategoryId = 3, ImageUrl = ""
+                    CategoryId = 3
                 });
         }
     }

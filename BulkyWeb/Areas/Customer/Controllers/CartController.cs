@@ -34,13 +34,19 @@ namespace BulkyWeb.Areas.Customer.Controllers
 
             ShoppingCartVM = new()
             {
-                ShoppingCartList = _unitOfWork.ShoppingCart.Getall(u => u.ApplicationUserId==userId, includeProperties: "Product"),
+                ShoppingCartList = _unitOfWork.ShoppingCart.Getall(u => u.ApplicationUserId==userId,
+                includeProperties: "Product"),
             OrderHeader = new()
 
             };
 
+            // add images
+            IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.Getall();
+
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
             {
+                cart.Product.ProductImages = productImages
+                    .Where(u => u.ProductId == cart.ProductId).ToList();
                 cart.Price = GetPriceBaseOnQuantity(cart);
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
@@ -169,7 +175,6 @@ namespace BulkyWeb.Areas.Customer.Controllers
                 //return new StatusCodeResult(303); // 303 See Other
                 // new  08-06-2025
                 return Redirect(session.Url);
-
             }
 
 
