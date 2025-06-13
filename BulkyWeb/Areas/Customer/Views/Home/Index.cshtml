@@ -1,50 +1,114 @@
 ﻿@model IEnumerable<Product>
 
-<div class="row pb-3">
-	@foreach (var product in Model)
-	{
-		<div class="col-lg-3 col-sm-6">
-			<div class="row p-2">
-				<div class="col-12 p1">
-					<div class="card border-0 p-3 shadow border-top border-5 rounded">
-						@if(product.ProductImages!= null && product.ProductImages.Count() > 0)
-						{
-							<img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top rounded" />
-						}
-						else
-						{
-							<img src="https://placehold.co/500x600/png" class="card-img-top rounded" />
-						}
-
-						<div class="card-body pb-0">
-							<div class="pl-1">
-								<p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-								<p class="card-title h5 text-warning text-center">by <b>@product.Author</b></p>
-							</div>
-							<div class="pl-1">
-								<p class="text-dark text-opacity-75 text-center mb-0">
-									List Price:
-									<span class="text-decoration-line-through">
-										@product.PriceList.ToString("c")
-									</span>
-								</p>
-							</div>
-							<div class="pl-1">
-								<p class="text-dark text-opacity-75 text-center">
-									As low as: <span>
-										@product.Price100.ToString("c")
-									</span>
-								</p>
-							</div>
-						</div>
-						<div>
-							<a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">
-								Details
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	}
+<!-- ✅ العنوان العلوي "All Courses" -->
+<div class="section-header text-center my-5">
+    <div class="all-courses-banner px-4 py-3 mx-auto">
+        <h2 class="mb-0">All Courses</h2>
+    </div>
 </div>
+
+
+
+<!-- ✅ عرض جميع المنتجات -->
+<div class="product-slider-container position-relative mb-5">
+    <!-- Left Arrow -->
+    <button class="slider-btn left" onclick="slideLeft()" aria-label="Slide Left">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
+
+    <!-- Product Cards -->
+    <div id="productSlider" class="product-slider d-flex overflow-hidden">
+        @foreach (var product in Model)
+        {
+            <div class="product-item me-3">
+                <div class="card product-card shadow-sm rounded-4 border-0 overflow-hidden">
+                    <div class="product-image-wrapper">
+                        @if (product.ProductImages != null && product.ProductImages.Count() > 0)
+                        {
+                            <img src="@product.ProductImages.FirstOrDefault().ImageUrl" alt="@product.Title" class="card-img-top product-image" />
+                        }
+                        else
+                        {
+                            <img src="https://placehold.co/500x600/png" alt="placeholder" class="card-img-top product-image" />
+                        }
+                    </div>
+                    <div class="card-body px-2 pt-2 pb-1">
+                        <h5 class="product-title text-uppercase text-truncate" title="@product.Title">@product.Title</h5>
+                        <p class="product-author mb-1">By <b>@product.Author</b></p>
+                        <div class="price-info mb-2">
+                            <span class="list-price text-muted text-decoration-line-through me-2">@product.PriceList.ToString("c")</span>
+                            <span class="sale-price text-primary fw-semibold">@product.Price100.ToString("c")</span>
+                        </div>
+                        <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary w-100 btn-details">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Right Arrow -->
+    <button class="slider-btn right" onclick="slideRight()" aria-label="Slide Right">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+
+</div>
+
+
+
+
+
+
+
+<!-- ✅ فاصل أنيق قبل التصنيفات -->
+<div class="fancy-divider my-5">
+    <hr class="divider-line" />
+    <h4 class="divider-text">Explore by Category</h4>
+</div>
+
+<!-- ✅ عرض المنتجات حسب التصنيفات -->
+@foreach (var categoryGroup in Model.GroupBy(p => p.Category.Name))
+{
+    <div class="category-section mb-5">
+        <div class="category-title-wrapper">
+            <h3 class="category-title">@categoryGroup.Key</h3>
+        </div>
+
+        <div class="row g-4 product-grid">
+            @foreach (var product in categoryGroup)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card shadow-sm rounded-4 border-0 overflow-hidden">
+                        <div class="product-image-wrapper">
+                            @if (product.ProductImages != null && product.ProductImages.Count() > 0)
+                            {
+                                <img src="@product.ProductImages.FirstOrDefault().ImageUrl" alt="@product.Title" class="card-img-top product-image" />
+                            }
+                            else
+                            {
+                                <img src="https://placehold.co/500x600/png" alt="placeholder" class="card-img-top product-image" />
+                            }
+                        </div>
+                        <div class="card-body px-3 pt-3 pb-2">
+                            <h5 class="product-title text-uppercase text-truncate" title="@product.Title">@product.Title</h5>
+                            <p class="product-author mb-2">By <b>@product.Author</b></p>
+                            <div class="price-info mb-3">
+                                <span class="list-price text-muted text-decoration-line-through me-2">@product.PriceList.ToString("c")</span>
+                                <span class="sale-price text-primary fw-semibold">@product.Price100.ToString("c")</span>
+                            </div>
+                            <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary w-100 btn-details">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

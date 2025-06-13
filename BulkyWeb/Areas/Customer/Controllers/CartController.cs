@@ -136,7 +136,15 @@ namespace BulkyWeb.Areas.Customer.Controllers
             if (applicationUser.CompanyId.GetValueOrDefault() == 0)
             {
                 // it is a regular customer account and we need to capture payment details
-                var domain = "https://bulkymvc-dotnetmastery-aaeaadeqg7eydybx.israelcentral-01.azurewebsites.net/";
+                string domain;
+                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                {
+                    domain = "https://localhost:7229/";  // أو أي بورت تستخدمه في لوكال
+                }
+                else
+                {
+                    domain = "https://bulkymvc-dotnetmastery-aaeaadeqg7eydybx.israelcentral-01.azurewebsites.net/";
+                }
 
                 var options = new SessionCreateOptions
                 {

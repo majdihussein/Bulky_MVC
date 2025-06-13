@@ -1,22 +1,235 @@
-html {
-  font-size: 14px;
+﻿html {
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+.section-header {
+    background-color: #f0f4ff;
+    border-left: 6px solid #0d6efd;
+}
+
+.category-section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 12px;
+    background: #f9f9f9;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ✅ الفاصل قبل التصنيفات */
+.fancy-divider {
+    position: relative;
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+
+.divider-line {
+    border: none;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #0d6efd, transparent);
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.divider-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 0 1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #0d6efd;
+    letter-spacing: 0.5px;
+}
+
+/* ✅ عنوان الفئة */
+.category-title-wrapper {
+    text-align: center;
+    margin: 3rem auto 2rem;
+}
+
+.category-title {
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #212529;
+    padding: 0.5rem 2rem;
+    border-left: 5px solid #0d6efd;
+    background: #f1f8ff;
+    border-radius: 1rem;
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.1);
+}
+
+.all-courses-box {
+    background: linear-gradient(145deg, #e0f0ff, #ffffff);
+    border: 2px solid #0d6efd20;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.1);
+    border-radius: 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+    .all-courses-box:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(13, 110, 253, 0.15);
+    }
+
+    .all-courses-box h2 {
+        color: #0d6efd;
+        letter-spacing: 0.5px;
+    }
+
+.all-courses-banner {
+    display: inline-block;
+    background-color: #f9f9fc;
+    padding: 1.5rem 3rem;
+    border-left: 5px solid #0d6efd;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+    .all-courses-banner h2 {
+        font-size: 1.75rem;
+        color: #212529;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0;
+        text-transform: capitalize;
+    }
+
+    .all-courses-banner:hover {
+        background-color: #f1f5ff;
+        box-shadow: 0 6px 20px rgba(13, 110, 253, 0.08);
+    }
+
+/* تصميم السلايدر */
+.product-slider-container {
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.product-slider {
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    gap: 12px;
+}
+
+.product-item {
+    min-width: 80px; /* ثلث الحجم تقريبا */
+    flex: 0 0 auto;
+}
+
+.product-card {
+    padding: 6px 4px;
+    font-size: 0.65rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+.product-image-wrapper img.product-image {
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-title {
+    font-size: 0.6rem;
+    margin-bottom: 2px;
+}
+
+.product-author {
+    font-size: 0.5rem;
+    margin-bottom: 4px;
+}
+
+.price-info {
+    font-size: 0.6rem;
+    margin-bottom: 6px;
+}
+
+.btn-details {
+    font-size: 0.6rem;
+    padding: 3px 0;
+}
+
+/* أسهم التنقل */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .slider-btn:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .slider-btn.left {
+        left: 10px;
+    }
+
+    .slider-btn.right {
+        right: 10px;
+    }
+
+/* السهم الجانبي الثابت */
+.side-scroll-arrow {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #000;
+    padding: 20px 10px;
+    font-size: 30px;
+    border-radius: 8px 0 0 8px;
+    text-decoration: none;
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+    .side-scroll-arrow:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        opacity: 1;
+        cursor: pointer;
+    }
