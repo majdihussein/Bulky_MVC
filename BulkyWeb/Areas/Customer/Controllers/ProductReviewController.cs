@@ -1,10 +1,11 @@
 ﻿using System.Security.Claims;
+using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Models.ViewModels;
 using Bulky.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Bulky.Models.ViewModels;
 
 namespace BulkyWeb.Areas.Customer.Controllers
 {
@@ -95,6 +96,21 @@ namespace BulkyWeb.Areas.Customer.Controllers
 
                 return RedirectToAction("Details", new { productId = review.ProductId });
             }
+
+        [AllowAnonymous]
+        public IActionResult RatingsForHome()
+        {
+            var ratings = _unitOfWork.Product.Getall(includeProperties: "ProductReviews")
+                .Select(p => new
+                {
+                    productId = p.Id, // ← لاحظ الحرف الصغير هنا
+                    averageRating = p.ProductReviews.Any() ? p.ProductReviews.Average(r => r.Rating) : 0
+                }).ToList();
+
+            return Json(ratings);
+        }
+
+
     }
 }
 

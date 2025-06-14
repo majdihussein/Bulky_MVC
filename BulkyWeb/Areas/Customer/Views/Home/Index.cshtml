@@ -43,10 +43,6 @@
                         <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-details w-100 mb-2">
                             View Details & Shop
                         </a>
-
-                        <a asp-area="Customer" asp-controller="ProductReview" asp-action="Details" asp-route-ProductId="@product.Id" class="btn btn-outline-info w-100">
-                            عرض التقييمات
-                        </a>
                     </div>
                 </div>
             </div>
@@ -101,9 +97,12 @@
                                 View Details
                             </a>
 
-                            <a asp-area="Customer" asp-controller="ProductReview" asp-action="Details" asp-route-ProductId="@product.Id" class="btn btn-outline-info w-100">
-                                عرض التقييمات
+                            <a class="btn btn-primary w-100 btn-details-rate mb-2" asp-area="Customer" asp-controller="ProductReview" asp-action="Details" asp-route-ProductId="@product.Id" class="btn btn-outline-info w-100">
+                                View Rating
                             </a>
+                            <p class="rating" data-product-id="@product.Id">جاري تحميل التقييم...</p>
+
+
                         </div>
                     </div>
                 </div>
@@ -111,3 +110,32 @@
         </div>
     </div>
 }
+
+
+<script>
+    const ratingsUrl = '@Url.Action("RatingsForHome", "ProductReview", new { area = "Customer" })';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+            const emptyStars = 5 - fullStars - halfStar;
+
+            return '⭐'.repeat(fullStars) + (halfStar ? '✰' : '') + '☆'.repeat(emptyStars);
+        }
+
+        fetch(ratingsUrl)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(rating => {
+                    const ratingElement = document.querySelector(`.rating[data-product-id='${rating.productId}']`);
+                    if (ratingElement) {
+                        const stars = generateStars(rating.averageRating);
+                        ratingElement.textContent = `Cource Rate: ${stars} (${rating.averageRating.toFixed(1)})`;
+                    }
+                });
+            });
+    });
+</script>
+
+
