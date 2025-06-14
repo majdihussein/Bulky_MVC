@@ -1,0 +1,48 @@
+﻿@model ChartVM
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="customer-dashboard my-5">
+    <div class="text-center mb-5">
+        <h2 class="dashboard-title"> Your Overview</h2>
+        <p class="dashboard-subtitle">Quick summary of your activity</p>
+    </div>
+
+    <div class="row justify-content-center gy-4">
+        <div class="col-md-4 col-sm-6">
+            <div class="dashboard-card card-users">
+                <div class="icon-wrapper">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div>
+                    <h5>Total Users</h5>
+                    <p class="value">@Model.TotalUser</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="dashboard-card card-products">
+                <div class="icon-wrapper">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <div>
+                    <h5>Total Products</h5>
+                    <p class="value">@Model.TotalProduct</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="dashboard-card card-orders">
+                <div class="icon-wrapper">
+                    <i class="bi bi-cart-check-fill"></i>
+                </div>
+                <div>
+                    <h5>Total Orders</h5>
+                    <p class="value">@Model.TotalOrder</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

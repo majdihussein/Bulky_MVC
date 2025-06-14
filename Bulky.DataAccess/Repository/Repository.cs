@@ -56,7 +56,7 @@ namespace Bulky.DataAccess.Repository
 
         public IEnumerable<T> Getall(Expression<Func<T, bool>>? filter, string? includeProperties = null)
         {
-            IQueryable<T> query = dbset;
+            IQueryable<T> query = dbset.AsNoTracking();
             if (filter != null)
 
             {
@@ -70,9 +70,10 @@ namespace Bulky.DataAccess.Repository
                 {
                     query = query.Include(includeProb);
                 }
-;
+
             }
-            return query.ToList();
+            return query.Take(100).ToList();
+
 
         }
 

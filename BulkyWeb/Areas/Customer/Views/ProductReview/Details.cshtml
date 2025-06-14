@@ -1,0 +1,89 @@
+﻿@model Bulky.Models.ViewModels.ProductReviewDetailsViewModel
+
+@{
+    ViewData["Title"] = "تفاصيل التقييمات";
+}
+
+<h2>@Model.Product.Title</h2>
+
+<div>
+    <strong>متوسط التقييم:</strong>
+    <span>
+        @Model.AverageRating.ToString("0.0") من 5
+        @for (int i = 1; i <= 5; i++)
+        {
+            if (i <= Model.AverageRating)
+            {
+                <span style="color: gold;">★</span>
+            }
+            else
+            {
+                <span style="color: lightgray;">★</span>
+            }
+        }
+    </span>
+</div>
+
+<hr />
+
+<h4>التقييمات:</h4>
+
+@if (Model.Reviews.Any())
+{
+    foreach (var review in Model.Reviews)
+    {
+        <div class="border p-2 mb-2">
+            <strong>@review.ApplicationUser.Name</strong> -
+            <small>@review.CreatedAt.ToString("yyyy/MM/dd")</small>
+            <div>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= review.Rating)
+                    {
+                        <span style="color: gold;">★</span>
+                    }
+                    else
+                    {
+                        <span style="color: lightgray;">★</span>
+                    }
+                }
+            </div>
+            <p>@review.Comment</p>
+        </div>
+    }
+}
+else
+{
+    <p>لا توجد تقييمات بعد.</p>
+}
+
+<hr />
+
+@if (Model.CanRate)
+{
+    <h4>أضف تقييمك:</h4>
+    <form asp-action="AddReview" method="post">
+        <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+
+        <div class="form-group">
+            <label>التقييم (من 1 إلى 5):</label>
+            <select name="Rating" class="form-control" required>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>تعليق (اختياري):</label>
+            <textarea name="Comment" class="form-control" rows="3" maxlength="1000"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">إرسال التقييم</button>
+    </form>
+}
+else
+{
+    <p class="text-muted">يجب أن تكون قد اشتريت هذا المنتج ولم تقم بتقييمه مسبقًا لتتمكن من إضافة تقييم.</p>
+}

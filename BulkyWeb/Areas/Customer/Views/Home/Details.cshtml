@@ -2,122 +2,106 @@
 
 <form method="post">
     <input hidden asp-for="ProductId" />
-    <div class="card shadow border-0 mt-4">
+    <div class="card shadow border-0 mt-4 rounded-4">
         <!-- Header -->
-        <div class="card-header bg-secondary bg-gradient text-light py-4">
+        <div class="card-header bg-primary bg-gradient text-light py-4 rounded-top">
             <div class="text-center">
-                <h3 class="text-white text-uppercase mb-1">@Model.Product.Title</h3>
-                <p class="text-white-50 fw-semibold mb-0">by @Model.Product.Author</p>
+                <h3 class="text-uppercase mb-1">@Model.Product.Title</h3>
+                <p class="text-light-opacity fw-semibold mb-0">by @Model.Product.Author</p>
             </div>
         </div>
 
         <!-- Body -->
-        <div class="card-body">
+        <div class="card-body p-4">
             <!-- Back Button -->
-            <div class="row mb-4">
-                <div class="col-md-3 offset-md-1">
-                    <a asp-action="Index" class="btn btn-outline-primary bg-gradient fw-semibold btn-sm text-uppercase">
-                        <small>Back to Home</small>
-                    </a>
-                </div>
+            <div class="mb-4">
+                <a asp-action="Index" class="btn btn-outline-primary btn-sm fw-semibold text-uppercase">
+                    ← Back to Home
+                </a>
             </div>
 
-            <div class="row">
-                <!-- Image -->
-                <div class="col-lg-4 text-center mb-4">
-                    
-
-
-
-                    @if(Model.Product.ProductImages != null && Model.Product.ProductImages.Count >0)
+            <div class="row gx-4 gy-4">
+                <!-- Image Carousel -->
+                <div class="col-lg-5 text-center">
+                    @if (Model.Product.ProductImages != null && Model.Product.ProductImages.Count > 0)
                     {
-
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-
-                            @foreach(var imageWithIndex in Model.Product.ProductImages
-                                  .Select((image,index)=> new { Image=image, Index=index }))
+                        <div id="carouselExampleIndicators" class="carousel slide rounded-3 shadow-sm" data-bs-ride="carousel" style="max-width: 100%;">
+                            <div class="carousel-indicators">
+                                @foreach (var imageWithIndex in Model.Product.ProductImages.Select((image, index) => new { Image = image, Index = index }))
                                 {
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" 
-                                    data-bs-slide-to="@imageWithIndex.Index" 
-                                    class="@(imageWithIndex.Index==0?"active":"")" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="@imageWithIndex.Index"
+                                            class="@(imageWithIndex.Index == 0 ? "active" : "")"
+                                            aria-current="true"
+                                            aria-label="Slide @(imageWithIndex.Index + 1)">
+                                    </button>
                                 }
-
-                        </div>
-                        <div class="carousel-inner">
-                            @foreach(var imageWithIndex in Model.Product.ProductImages
-                                  .Select((image,index)=> new { Image=image, Index=index }))
-                                {
-                                    <div class="@(imageWithIndex.Index==0?"carousel-item active":"carousel-item")">
-                                <img src="@imageWithIndex.Image.ImageUrl" class="d-block w-100" alt="...">
                             </div>
+                            <div class="carousel-inner rounded-3">
+                                @foreach (var imageWithIndex in Model.Product.ProductImages.Select((image, index) => new { Image = image, Index = index }))
+                                {
+                                    <div class="carousel-item @(imageWithIndex.Index == 0 ? "active" : "")">
+                                        <img src="@imageWithIndex.Image.ImageUrl" class="d-block w-100 rounded-3" alt="@Model.Product.Title" style="object-fit: contain; max-height: 350px;" />
+                                    </div>
                                 }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
                     }
-
-
-
-
-
-
+                    else
+                    {
+                        <img src="https://placehold.co/400x350/png?text=No+Image" alt="No Image" class="img-fluid rounded-3 shadow-sm" />
+                    }
                 </div>
 
-                <!-- Product Info -->
+                <!-- Product Details -->
                 <div class="col-lg-7">
                     <div class="mb-3">
-                        <span class="badge bg-info fs-6">@Model.Product.Category.Name</span>
+                        <span class="badge bg-info fs-6 text-uppercase">@Model.Product.Category.Name</span>
                     </div>
 
-                    <div class="mb-2 text-muted">
-                        <strong>ISBN:</strong> @Model.Product.ISBN
-                    </div>
-
-                    <div class="mb-2">
-                        <strong>List Price:</strong>
-                        <span class="text-danger text-decoration-line-through">@Model.Product.PriceList.ToString("c")</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <strong>Price for 1–50 units:</strong>
-                        <span class="text-success">@Model.Product.Price.ToString("c")</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <strong>Price for 51–100 units:</strong>
-                        <span class="text-success">@Model.Product.Price50.ToString("c")</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <strong>Price for 100+ units:</strong>
-                        <span class="text-success">@Model.Product.Price100.ToString("c")</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <p class="text-secondary">@Html.Raw(Model.Product.Description)</p>
-                    </div>
-
-                    <!-- Count Input -->
-                    <div class="mb-4 col-md-6 ps-0">
-                        <div class="input-group">
-                            <span class="input-group-text bg-primary text-white fw-semibold" id="countLabel">
-                                Count
-                            </span>
-                            <input asp-for="Count" type="number" value="1" min="1" class="form-control text-end" aria-label="Count" aria-describedby="countLabel" />
+                    <div class="product-details-box mb-4">
+                        <div class="info-tag">
+                            <span class="tag-title">ISBN</span>
+                            <span class="tag-value">@Model.Product.ISBN</span>
+                        </div>
+                        <div class="info-tag">
+                            <span class="tag-title">List Price</span>
+                            <span class="tag-value text-danger text-decoration-line-through">@Model.Product.PriceList.ToString("c")</span>
+                        </div>
+                        <div class="info-tag">
+                            <span class="tag-title">1–50 Units</span>
+                            <span class="tag-value text-success">@Model.Product.Price.ToString("c")</span>
+                        </div>
+                        <div class="info-tag">
+                            <span class="tag-title">51–100 Units</span>
+                            <span class="tag-value text-success">@Model.Product.Price50.ToString("c")</span>
+                        </div>
+                        <div class="info-tag">
+                            <span class="tag-title">100+ Units</span>
+                            <span class="tag-value text-success">@Model.Product.Price100.ToString("c")</span>
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="col-md-6 ps-0">
-                        <button type="submit" class="btn btn-primary bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                    <p class="product-description mb-4">@Html.Raw(Model.Product.Description)</p>
+
+                    <div class="d-flex align-items-center flex-wrap gap-3">
+                        <div class="input-group stylish-count-input w-auto">
+                            <span class="input-group-text">Count</span>
+                            <input asp-for="Count" type="number" value="1" min="1" class="form-control text-end" />
+                        </div>
+                    </div>
+
+
+
+                        <button type="submit" class="btn btn-primary bg-gradient py-2 text-uppercase fw-semibold flex-grow-1">
                             Add to Cart
                         </button>
                     </div>

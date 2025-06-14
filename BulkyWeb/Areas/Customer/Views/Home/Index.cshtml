@@ -7,8 +7,6 @@
     </div>
 </div>
 
-
-
 <!-- ✅ عرض جميع المنتجات -->
 <div class="product-slider-container position-relative mb-5">
     <!-- Left Arrow -->
@@ -17,7 +15,6 @@
             <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
     </button>
-
 
     <!-- Product Cards -->
     <div id="productSlider" class="product-slider d-flex overflow-hidden">
@@ -39,11 +36,16 @@
                         <h5 class="product-title text-uppercase text-truncate" title="@product.Title">@product.Title</h5>
                         <p class="product-author mb-1">By <b>@product.Author</b></p>
                         <div class="price-info mb-2">
-                            <span class="list-price text-muted text-decoration-line-through me-2">@product.PriceList.ToString("c")</span>
+                            <span class="list-price text-danger text-decoration-line-through me-2">@product.PriceList.ToString("c")</span>
                             <span class="sale-price text-primary fw-semibold">@product.Price100.ToString("c")</span>
                         </div>
-                        <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary w-100 btn-details">
-                            View Details
+
+                        <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-details w-100 mb-2">
+                            View Details & Shop
+                        </a>
+
+                        <a asp-area="Customer" asp-controller="ProductReview" asp-action="Details" asp-route-ProductId="@product.Id" class="btn btn-outline-info w-100">
+                            عرض التقييمات
                         </a>
                     </div>
                 </div>
@@ -57,14 +59,7 @@
             <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
     </button>
-
 </div>
-
-
-
-
-
-
 
 <!-- ✅ فاصل أنيق قبل التصنيفات -->
 <div class="fancy-divider my-5">
@@ -102,8 +97,12 @@
                                 <span class="list-price text-muted text-decoration-line-through me-2">@product.PriceList.ToString("c")</span>
                                 <span class="sale-price text-primary fw-semibold">@product.Price100.ToString("c")</span>
                             </div>
-                            <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary w-100 btn-details">
+                            <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary w-100 btn-details mb-2">
                                 View Details
+                            </a>
+
+                            <a asp-area="Customer" asp-controller="ProductReview" asp-action="Details" asp-route-ProductId="@product.Id" class="btn btn-outline-info w-100">
+                                عرض التقييمات
                             </a>
                         </div>
                     </div>
